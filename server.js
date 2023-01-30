@@ -1,19 +1,15 @@
-
+//DEPENDENCIES
 const express = require('express');
-const path = require('path')
-const fs = require('fs');
-// Helper method for generating unique ids
-const uuid = require('./helpers/uuid');
-
-//SET INITAL PORT - is this correct?
-const PORT = 3001;
 
 // EXPRESS CONFIG
 const app = express();
 
+//SET INITAL PORT - is this correct?
+const PORT = 3001;
+
 //MIDDLEWARE
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // SETS UP EXPRESS APP TO SERVE STATIC FILES
 app.use(express.static('public'));
