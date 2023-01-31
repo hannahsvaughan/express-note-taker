@@ -7,8 +7,8 @@ This is an application called Note Taker that can be used to write and save note
 
 ## Video Demo
 
-
 ## Installation
+
 
 ## Usage
 Click here to view deployed application on Heroku

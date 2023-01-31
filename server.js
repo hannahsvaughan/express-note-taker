@@ -1,10 +1,11 @@
 //DEPENDENCIES
 const express = require("express");
-const routes = require("./routes")
+const routes = require("./routes");
 // EXPRESS CONFIG
 const app = express();
-const path = require("path")
-//SET INITAL PORT - is this correct?
+const path = require("path");
+
+//SET INITAL PORT 
 const PORT = process.env.port || 3001;
 
 //MIDDLEWARE
@@ -14,8 +15,8 @@ app.use(express.json());
 // SETS UP EXPRESS APP TO SERVE STATIC FILES
 app.use(routes)
 app.use(express.static('public'));
-//ROUTER
 
+//ROUTER
 app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/notes.html"));
 });
