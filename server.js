@@ -1,26 +1,31 @@
 //DEPENDENCIES
 const express = require("express");
-
+const routes = require("./routes")
 // EXPRESS CONFIG
 const app = express();
-
+const path = require("path")
 //SET INITAL PORT - is this correct?
-const PORT = 3001;
+const PORT = process.env.port || 3001;
 
 //MIDDLEWARE
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // SETS UP EXPRESS APP TO SERVE STATIC FILES
+app.use(routes)
 app.use(express.static('public'));
-
 //ROUTER
-require("./routes/api.routes")(app);
-require("./routes/html.routes")(app);
 
+app.get("/notes", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/notes.html"));
+});
+// GET * should return the index.html file
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
+});
 //LISTENER
 app.listen(PORT, () => 
-  console.log(`Express server currently running on por: ${PORT}`)
+  console.log(`Express server currently running on port: ${PORT}`)
 );
 
 
