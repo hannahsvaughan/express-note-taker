@@ -24,6 +24,12 @@ app.get("/notes", (req, res) => {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
+
+//POST REQUEST??? idk
+
+//DELETE?
+
+
 //LISTENER
 app.listen(PORT, () => 
   console.log(`Express server currently running on port: ${PORT}`)

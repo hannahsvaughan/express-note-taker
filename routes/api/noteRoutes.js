@@ -1,6 +1,8 @@
 const noteRouter = require("express").Router()
+const { randomUUID } = require("crypto");
 const express = require("express");
-const fs = require("fs")
+const fs = require("fs");
+const app = require(".");
 
 const readNotes = () => {
     console.log("reading notes!")
@@ -27,5 +29,45 @@ noteRouter.get("/", (req, res) => {
 
 });
 
+// POST REQUEST - take request body so whatever the user enters
 
+const addNote = (updatedNotesArray) => {
+    fs.writeFile("./db/db.json", JSON.stringify(updatedNotesArray), (err) => {
+        if (err) {
+            throw err
+        } else {
+            return updatedNotesArray
+        }
+    });
+};
+
+//then in post request call the addNote function
+
+app.post('/', (req,res) => {
+    console.info(`${req.method} request received to add a note`);
+
+    //Destructuring assignemtn for items in req.body
+    const { title, text } = req.body;
+
+    if(title && text) {
+     //Variable for the object we will save   
+        const newNote = {
+            title,
+            text,
+            note_id: uuid(),
+        };
+
+        readAndAppend(newNote, './db/db.json');
+
+        const response = {
+            status: 'success',
+            body: newNote,
+        };
+
+        res.json(response);
+    } else {
+        res.json('Error in posting note');
+    }
+    });
+    
 module.exports = noteRouter
