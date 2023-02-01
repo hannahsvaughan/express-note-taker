@@ -4,6 +4,8 @@ const routes = require("./routes");
 // EXPRESS CONFIG
 const app = express();
 const path = require("path");
+const apiRoutes = require("./routes/index.js");
+const noteRoutes = require("./routes/noteRoutes.js");
 
 //SET INITAL PORT 
 const PORT = process.env.port || 3001;
@@ -15,15 +17,17 @@ app.use(express.json());
 // SETS UP EXPRESS APP TO SERVE STATIC FILES
 app.use(routes)
 app.use(express.static('public'));
+app.use("/", apiRoutes);
+app.use("/notes", noteRoutes);
 
 //ROUTER
-app.get("/notes", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/notes.html"));
-});
-// GET * should return the index.html file
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/index.html"));
-});
+// app.get("/notes", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./public/notes.html"));
+// });
+// // GET * should return the index.html file
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./public/index.html"));
+// });
 
 //POST REQUEST??? idk
 

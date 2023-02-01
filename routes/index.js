@@ -1,10 +1,17 @@
-const express = require("express")
+// const express = require("express")
+// // WE require modular routes
+// const noteRoutes = require("./noteRoutes.js")
+// const app = express()
+const router = require("express").Router();
+const path = require("path");
 
-// WE require modular routes
-const apiRoutes = require("./api")
-const app = express()
 
-//we Tell our app to use those routes
-app.use("/api", apiRoutes)
+router.get("/notes", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/notes.html"));
+});
+// GET * should return the index.html file
+router.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 
-module.exports = app
+module.exports = router;
